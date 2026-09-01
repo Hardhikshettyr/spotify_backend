@@ -39,5 +39,29 @@ async function createalbum(req,res){
         }
     })
 }
+async function getmusic(req,res){
+    const music=await musicmodel.find();
+    res.status(200).json({
+        message:"music displayed",
+        music
+    })
+}
 
-module.exports={createmusic,createalbum};
+async function getalbum(req,res){
+    const album=await albummodel.find().select("title artist").populate("artist","username email");
+    res.status(200).json({
+        message:"album displayed",
+        album
+    })
+}
+
+async function getalbumbyid(req,res){
+    const id=req.params.id
+    const album=await albummodel.findById(id).populate("artist" ,"username email").populate("musics");
+    res.status(200).json({
+        message:"album displayed",
+        album
+    })
+}
+
+module.exports={createmusic,createalbum,getmusic,getalbum,getalbumbyid};

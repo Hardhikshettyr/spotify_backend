@@ -25,7 +25,7 @@ async function authArtist(req,res,next){
     }
 }
 async function authUser(req,res,next){
-    const token=req.cookie.token;
+    const token=req.cookies.token;
     if(!token){
         return res.staus(401).json({
             message:"Unauthorized"
